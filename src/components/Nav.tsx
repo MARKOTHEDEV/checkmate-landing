@@ -91,12 +91,12 @@ const DesktopNav = () => {
   return (
     <div className="flex items-center justify-between py-[38.5px] px-[80px]">
       <Logo className="w-[187.489px] h-[30px]" />
-      <div>
+      <div className="flex items-center justify-between gap-[40px]">
         {navLinks.map((link) => (
           <a
             key={link.label}
             href={link.href}
-            className="text-base font-medium text-black mx-4"
+            className="text-base font-medium text-[#505050] p-[10px] cursor-pointer hover:text-brand-green transition-colors"
           >
             {link.label}
           </a>
@@ -105,7 +105,7 @@ const DesktopNav = () => {
       <Button
         variant="brand"
         asChild
-        className="h-[48px] w-[150px] text-base rounded-[4px] !font-semibold"
+        className="h-[48px] w-[150px] text-base rounded-[4px] !font-semibold bg-brand-green"
       >
         <a href="#">Get the App</a>
       </Button>
@@ -115,8 +115,12 @@ const DesktopNav = () => {
 const Nav = () => {
   return (
     <div>
-      {/* <MobileNav /> */}
-      <DesktopNav />
+      <div className="md:hidden">
+        <MobileNav />
+      </div>
+      <div className="hidden md:block">
+        <DesktopNav />
+      </div>
     </div>
   );
 };
