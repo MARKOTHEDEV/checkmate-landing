@@ -11,7 +11,7 @@ const EachWhyChooseUs = ({
   isFirst?: boolean;
   isLast?: boolean;
 }) => (
-  <div className="pb-[40px] md:flex-1">
+  <div className={`${isLast ? "" : "pb-[40px]"}  md:flex-1`}>
     <div
       className={`relative flex items-center justify-center mb-[12px] `}
       style={{}}
@@ -61,7 +61,7 @@ const WhyChoose = () => {
     },
   ];
   return (
-    <div className="pt-[80px] px-[20px] bg-[#E6F5ED] md:py-[100px] mt-[64px] mb-[40px] md:mt-[128px] md:mb-[80px]">
+    <div className="py-[80px] px-[20px] bg-[#E6F5ED] md:py-[100px] mt-[64px] mb-[40px] md:mt-[128px] md:mb-[80px]">
       <div className="max-w-[1200px] mx-auto">
         <p className="text-center text-[#333333] font-medium text-[20px] pb-[32px] md:text-[48px] md:font-medium">
           Why Choose{" "}

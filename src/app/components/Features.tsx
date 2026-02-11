@@ -58,7 +58,7 @@ const Features = () => {
   return (
     <div className="mt-[64px] px-[20px] md:max-w-[1200px] mx-auto md:px-[unset]">
       <div className="text-center pb-[40px]">
-        <p className="font-regular text-[#333333] text-[10px] pb-[16px] md:text-[12px]">
+        <p className="font-regular text-[#333333] text-[12px] pb-[16px] md:text-[12px]">
           Features
         </p>
 
