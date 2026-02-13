@@ -17,7 +17,7 @@ const JoinCircle = () => {
         {/* ══ MOBILE layout ══ */}
         <div className="flex flex-col items-center gap-[24px] md:hidden">
           {/* Illustration */}
-          <img src="/chequie-mobile.svg" alt="" />
+          <img src="/chequie-mobile.svg" alt="" loading="lazy" />
 
           {/* Text + form */}
           <div className="flex flex-col items-center gap-[16px] w-full">
@@ -58,7 +58,7 @@ const JoinCircle = () => {
         {/* ══ DESKTOP layout ══ */}
         <div className="hidden md:flex items-center gap-[100px]">
           {/* Illustration */}
-          <img src="/chequie-desktop.svg" alt="" />
+          <img src="/chequie-desktop.svg" alt="" loading="lazy" />
 
           {/* Text + form */}
           <div className="flex flex-col gap-[40px]">

@@ -28,6 +28,7 @@ const Footer = () => {
               src="/checkmate-logo.svg"
               alt="Checkmate Logo"
               className="h-[24px] brightness-0 invert md:w-[199.9px] md:h-[32px] md:mr-auto md:translate-x-[-30px]"
+              loading="lazy"
             />
             <p className="text-[14px] text-[#EDEDED] font-regular text-center py-[12px] md:text-left md:text-[18px] ">
               Chequemate is an Ajo management tool that helps Ajo admins and
@@ -35,16 +36,16 @@ const Footer = () => {
               systems.
             </p>
             <div className="flex  gap-[12px] items-center md:hidden">
-              <img src="/intgram-mobile.svg" alt="" />
-              <img src="/facebook-mobile.svg" alt="" />
-              <img src="/twitter-mobile.svg" alt="" />
-              <img src="/linkdin-mobile.svg" alt="" />
+              <img src="/intgram-mobile.svg" alt="" loading="lazy" />
+              <img src="/facebook-mobile.svg" alt="" loading="lazy" />
+              <img src="/twitter-mobile.svg" alt="" loading="lazy" />
+              <img src="/linkdin-mobile.svg" alt="" loading="lazy" />
             </div>
-            <div className="flex  gap-[12px] items-center">
-              <img src="/instabig.png" alt="" />
-              <img src="/facebookbig.svg" alt="" />
-              <img src="/twitterBig.svg" alt="" />
-              <img src="/linkdinbig.svg" alt="" />
+            <div className="hidden md:flex  gap-[12px] items-center">
+              <img src="/instabig.png" alt="" loading="lazy" />
+              <img src="/facebookbig.svg" alt="" loading="lazy" />
+              <img src="/twitterBig.svg" alt="" loading="lazy" />
+              <img src="/linkdinbig.svg" alt="" loading="lazy" />
             </div>
           </div>
 

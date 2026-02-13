@@ -46,6 +46,7 @@ const HeroSection = () => {
         src="/hero-sec-img.svg"
         alt=""
         className="w-full block h-[335px] md:h-[562px]"
+        fetchPriority="high"
       />
     </div>
   );

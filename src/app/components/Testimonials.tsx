@@ -79,6 +79,7 @@ const Avatar = ({
       src={src}
       alt={name}
       className="w-full h-full object-cover"
+      loading="lazy"
       onError={(e) => {
         (e.target as HTMLImageElement).src =
           `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=e6f5ed&color=008a48`;

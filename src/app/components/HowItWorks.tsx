@@ -40,7 +40,7 @@ const HowItWorks = () => {
           {steps.map(({ illustration, title, description }) => (
             <div key={title} className="flex flex-col items-center gap-[20px]">
               {/* Illustration card */}
-              <img src={illustration} className="block " alt="" />
+              <img src={illustration} className="block " alt="" loading="lazy" />
 
               {/* Text */}
               <div className="flex flex-col items-center gap-[12px] text-center px-[4px]">
@@ -63,7 +63,7 @@ const HowItWorks = () => {
               className="flex flex-col items-center gap-[62px] flex-1"
             >
               {/* Illustration card */}
-              <img src={illustrationBig} className="" alt="" />
+              <img src={illustrationBig} className="" alt="" loading="lazy" />
               {/* Text */}
               <div className="flex flex-col items-center gap-[16px] text-center w-full py-[8px]">
                 <p className="font-semibold text-black text-[24px] leading-normal w-full">

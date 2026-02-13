@@ -20,6 +20,7 @@ const EachFeatures = ({
         src={img}
         className="block w-full mx-auto md:w-[503px] md:h-[503px] md:mx-[unset]"
         alt=""
+        loading="lazy"
       />
       <div className="text-center w-[300px] mx-auto md:w-[479px] md:text-left">
         <p

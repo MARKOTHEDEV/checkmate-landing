@@ -8,7 +8,7 @@ const ReadyToGetStarted = () => {
         {/* ══ MOBILE layout ══ */}
         <div className="flex flex-col items-center gap-[24px] md:hidden">
           {/* Illustration top */}
-          <img src="/mobile-celebrate.svg" alt="" />
+          <img src="/mobile-celebrate.svg" alt="" loading="lazy" />
 
           {/* Text + button */}
           <div className="flex flex-col items-center gap-[16px] text-center">
@@ -54,6 +54,7 @@ const ReadyToGetStarted = () => {
             src="/desktop-celebrate.svg"
             // className="block w-[418.843994140625px]"
             alt=""
+            loading="lazy"
           />
         </div>
       </div>

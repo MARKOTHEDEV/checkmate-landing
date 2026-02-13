@@ -28,8 +28,9 @@ const EachNumbers = ({
           src={icon}
           className={`${imgStyle} ${iconBig ? "md:hidden" : ""}`}
           alt=""
+          loading="lazy"
         />
-        {iconBig && <img src={iconBig} className="hidden md:block" alt="" />}
+        {iconBig && <img src={iconBig} className="hidden md:block" alt="" loading="lazy" />}
         <span className="" style={{ color }}>
           {title}
         </span>
