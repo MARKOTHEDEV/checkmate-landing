@@ -40,19 +40,19 @@ const Features = () => {
     {
       title: "Create & Join Ajo from anywhere",
       body: "Start your own Ajo circle or join one with friends, family, or trusted circle. Set the amount, frequency, and number of members, all managed securely in the app. No more manual records or WhatsApp tracking; everything is transparent and automated.",
-      img: "/create-ajo-anywhere.svg",
+      img: "/optimized/create-ajo-anywhere.optimized.webp",
       headingColor: "#0052C4",
     },
     {
       title: "Multi-Currency Wallet",
       body: "Start your own Ajo circle or join one with friends, family, or trusted circle. Set the amount, frequency, and number of members, all managed securely in the app. No more manual records or WhatsApp tracking; everything is transparent and automated.",
-      img: "/wallet.svg",
+      img: "/optimized/wallet.webp",
       headingColor: "#006E39",
     },
     {
       title: "Security Deposits for Peace of Mind",
       body: "Ajo admin can add an optional security deposit to protect members from defaults. Trust and accountability built into the system with security deposit.",
-      img: "/security-mind.svg",
+      img: "/optimized/security-mind.webp",
       headingColor: "#4C4486",
     },
   ];

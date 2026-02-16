@@ -43,7 +43,7 @@ const HeroSection = () => {
         </div>
       </div>
       <img
-        src="/hero-sec-img.svg"
+        src="/optimized/hero-sec-img.optimized.webp"
         alt=""
         className="w-full block h-[335px] md:h-[562px]"
         fetchPriority="high"

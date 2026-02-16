@@ -9,8 +9,8 @@ const steps = [
       "Become an Ajo admin and invite friends, family, or community members or join an existing trusted circle.",
   },
   {
-    illustration: "/expore.svg",
-    illustrationBig: "/export-big.svg",
+    illustration: "/optimized/expore.webp",
+    illustrationBig: "/optimized/export-big.webp",
 
     title: "Contribute Securely",
     description:
@@ -20,7 +20,6 @@ const steps = [
     illustration: "/paind.svg",
     title: "Receive Your Payout",
     illustrationBig: "/paid-big.svg",
-
     description:
       "Chequemate makes sure every Ajo payout goes to the right person, at the right time.",
   },
@@ -40,7 +39,12 @@ const HowItWorks = () => {
           {steps.map(({ illustration, title, description }) => (
             <div key={title} className="flex flex-col items-center gap-[20px]">
               {/* Illustration card */}
-              <img src={illustration} className="block " alt="" loading="lazy" />
+              <img
+                src={illustration}
+                className="block "
+                alt=""
+                loading="lazy"
+              />
 
               {/* Text */}
               <div className="flex flex-col items-center gap-[12px] text-center px-[4px]">
