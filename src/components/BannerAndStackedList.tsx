@@ -29,7 +29,7 @@ const BannerAndStackedList = ({
         </div>
 
         <div
-          className={`flex flex-col md:gap-[100px] md:items-center ${flxDirection ? "md:flex-row-reverse" : ""}`}
+          className={`flex flex-col md:flex-row md:gap-[100px] md:items-center ${flxDirection ? "md:flex-row-reverse" : ""}`}
         >
           <img
             src={image}
