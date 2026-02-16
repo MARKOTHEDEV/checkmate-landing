@@ -9,16 +9,22 @@ import HowItWorks from "./components/HowItWorks";
 import JoinCircle from "./components/JoinCircle";
 import FAQ from "./components/FAQ";
 import ReadyToGetStarted from "./components/ReadyToGetStarted";
+import TheProblem from "./components/TheProblem";
+import TheCheckMateAdvantage from "./components/TheCheckMateAdvantage";
+import SecurityPeaceOfMind from "./components/SecurityPeaceOfMind";
 
 export default function Home() {
   return (
     <GeneralLayout>
       <HeroSection />
       <OurNumbers />
+      <TheProblem />
+      <TheCheckMateAdvantage />
+      <HowItWorks />
+      <Testimonials />
       <Features />
       <WhyChoose />
-      <Testimonials />
-      <HowItWorks />
+      <SecurityPeaceOfMind />
       <JoinCircle />
       <FAQ />
       <ReadyToGetStarted />
