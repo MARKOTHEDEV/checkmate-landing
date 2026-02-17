@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { useInView } from "@/hooks/useInView";
 
 const testimonials = [
   {
@@ -90,17 +92,30 @@ const Avatar = ({
 
 const Testimonials = () => {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<"left" | "right">("right");
+  const { ref: sectionRef, isInView } = useInView();
 
-  const prev = () =>
+  const prev = () => {
+    setDirection("left");
     setCurrent((c) => (c === 0 ? testimonials.length - 1 : c - 1));
-  const next = () =>
+  };
+  const next = () => {
+    setDirection("right");
     setCurrent((c) => (c === testimonials.length - 1 ? 0 : c + 1));
+  };
 
   return (
-    <section className="bg-white md:bg-[#fcfcfc] py-[40px] md:py-[80px]">
+    <section className="bg-white md:bg-[#fcfcfc] py-[40px] md:py-[80px]" ref={sectionRef}>
       <div className="max-w-[1240px] mx-auto px-[20px] md:px-[100px]">
-        {/* ── Mobile heading (two lines) ── */}
-        <p className="md:hidden font-bold text-[#080808] text-[20px] text-center leading-tight mb-[16px]">
+        {/* Mobile heading */}
+        <p
+          className={cn(
+            "md:hidden font-bold text-[#080808] text-[20px] text-center leading-tight mb-[16px]",
+            isInView
+              ? "animate-in fade-in duration-500 fill-mode-forwards"
+              : "opacity-0"
+          )}
+        >
           Testimonials
           <br />
           <span>A </span>
@@ -108,27 +123,41 @@ const Testimonials = () => {
           <span> once said...</span>
         </p>
 
-        {/* ── Desktop heading (single line) ── */}
-        <p className="hidden md:block font-medium text-[#333] text-[48px] text-center leading-[60px] mb-[80px]">
+        {/* Desktop heading */}
+        <p
+          className={cn(
+            "hidden md:block font-medium text-[#333] text-[48px] text-center leading-[60px] mb-[80px]",
+            isInView
+              ? "animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-forwards"
+              : "opacity-0"
+          )}
+        >
           <span>Testimonials - A </span>
           <span className="text-[#38c166]">Mate</span>
           <span> once said...</span>
         </p>
 
-        {/* ══ MOBILE: single-card carousel ══ */}
+        {/* MOBILE: single-card carousel with crossfade */}
         <div className="md:hidden">
           <div className="relative flex items-center justify-center">
             {/* Left arrow */}
             <button
               onClick={prev}
               aria-label="Previous testimonial"
-              className="absolute left-0 z-10 flex items-center justify-center w-[24px] h-[24px] rounded-full border-[0.4px] border-[#008A48] bg-[#FFFDF8] rotate-180 shrink-0"
+              className="absolute left-0 z-10 flex items-center justify-center w-[24px] h-[24px] rounded-full border-[0.4px] border-[#008A48] bg-[#FFFDF8] rotate-180 shrink-0 hover:scale-110 transition-transform"
             >
               <SmallArrow />
             </button>
 
-            {/* Card */}
-            <div className="bg-white rounded-[12px] shadow-[1px_1px_1px_0px_rgba(0,0,0,0.12),-1px_-1px_1px_0px_rgba(0,0,0,0.12)] w-[300px] py-[24px] h-[335px] px-[12px] flex flex-col items-center gap-[24px]">
+            {/* Card with crossfade */}
+            <div
+              key={current}
+              className={cn(
+                "bg-white rounded-[12px] shadow-[1px_1px_1px_0px_rgba(0,0,0,0.12),-1px_-1px_1px_0px_rgba(0,0,0,0.12)] w-[300px] py-[24px] h-[335px] px-[12px] flex flex-col items-center gap-[24px]",
+                "animate-in fade-in duration-300 fill-mode-forwards",
+                direction === "right" ? "slide-in-from-right-4" : "slide-in-from-left-4"
+              )}
+            >
               <div className="flex flex-col items-center gap-[12px]">
                 <Avatar
                   src={testimonials[current].image}
@@ -153,7 +182,7 @@ const Testimonials = () => {
             <button
               onClick={next}
               aria-label="Next testimonial"
-              className="absolute right-0 z-10 flex items-center justify-center w-[24px] h-[24px] rounded-full border-[0.4px] border-[#008A48] bg-[#FFFDF8] shrink-0"
+              className="absolute right-0 z-10 flex items-center justify-center w-[24px] h-[24px] rounded-full border-[0.4px] border-[#008A48] bg-[#FFFDF8] shrink-0 hover:scale-110 transition-transform"
             >
               <SmallArrow />
             </button>
@@ -164,7 +193,10 @@ const Testimonials = () => {
             {testimonials.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrent(i)}
+                onClick={() => {
+                  setDirection(i > current ? "right" : "left");
+                  setCurrent(i);
+                }}
                 aria-label={`Go to testimonial ${i + 1}`}
                 className={`w-[8px] h-[8px] rounded-full transition-colors ${
                   i === current ? "bg-[#008A48]" : "bg-[#D9D9D9]"
@@ -174,14 +206,19 @@ const Testimonials = () => {
           </div>
         </div>
 
-        {/* ══ DESKTOP: 3-card grid + bottom arrows ══ */}
+        {/* DESKTOP: 3-card grid + bottom arrows */}
         <div className="hidden md:flex flex-col items-center gap-[31px]">
           {/* Cards row */}
           <div className="flex gap-[35px] items-start">
-            {testimonials.map(({ name, location, image, text }) => (
+            {testimonials.map(({ name, location, image, text }, index) => (
               <div
                 key={name}
-                className="bg-[#fcfcfc] border border-[#008A48] rounded-[12px] w-[390px] h-[395px] overflow-hidden flex flex-col items-center pt-[39px] px-[16px] pb-[24px]"
+                className={cn(
+                  "bg-[#fcfcfc] border border-[#008A48] rounded-[12px] w-[390px] h-[395px] overflow-hidden flex flex-col items-center pt-[39px] px-[16px] pb-[24px]",
+                  isInView
+                    ? `animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-forwards delay-${index * 200}`
+                    : "opacity-0"
+                )}
               >
                 <div className="flex flex-col items-center gap-[24px] w-full">
                   <div className="flex flex-col items-center gap-[12px]">
@@ -208,14 +245,14 @@ const Testimonials = () => {
             <button
               onClick={prev}
               aria-label="Previous testimonials"
-              className="flex items-center justify-center w-[48px] h-[48px] rounded-full border-[0.8px] border-[#008A48] bg-[#FFFDF8] rotate-180 shrink-0"
+              className="flex items-center justify-center w-[48px] h-[48px] rounded-full border-[0.8px] border-[#008A48] bg-[#FFFDF8] rotate-180 shrink-0 hover:scale-110 transition-transform"
             >
               <LargeArrow />
             </button>
             <button
               onClick={next}
               aria-label="Next testimonials"
-              className="flex items-center justify-center w-[48px] h-[48px] rounded-full border-[0.8px] border-[#008A48] bg-[#FFFDF8] shrink-0"
+              className="flex items-center justify-center w-[48px] h-[48px] rounded-full border-[0.8px] border-[#008A48] bg-[#FFFDF8] shrink-0 hover:scale-110 transition-transform"
             >
               <LargeArrow />
             </button>

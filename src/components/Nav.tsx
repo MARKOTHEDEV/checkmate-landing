@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 import Logo from "./ui/Logo";
 import { Button } from "./ui/button";
 
@@ -30,7 +31,7 @@ const MobileNav = () => {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-white">
+        <div className="fixed inset-0 z-50 bg-white animate-in fade-in duration-200 fill-mode-forwards">
           {/* Menu Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8E8E8]">
             <Logo />
@@ -58,13 +59,18 @@ const MobileNav = () => {
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex flex-col mt-[42px] ">
-            {navLinks.map((link) => (
+          <nav className="flex flex-col mt-[42px]">
+            {navLinks.map((link, index) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="h-[60px] flex items-center px-5 border-b border-[#AFAFAF] text-base font-medium text-black"
+                className={cn(
+                  "h-[60px] flex items-center px-5 border-b border-[#AFAFAF] text-base font-medium text-black",
+                  "animate-in fade-in slide-in-from-right-4 fill-mode-forwards",
+                  `delay-${index * 75}`,
+                  "duration-300"
+                )}
               >
                 {link.label}
               </a>
@@ -72,7 +78,7 @@ const MobileNav = () => {
           </nav>
 
           {/* Get the App Button */}
-          <div className="px-5 mt-[63px]">
+          <div className="px-5 mt-[63px] animate-in fade-in slide-in-from-bottom-4 duration-300 delay-300 fill-mode-forwards">
             <Button
               variant="brand"
               asChild
@@ -88,8 +94,25 @@ const MobileNav = () => {
 };
 
 const DesktopNav = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="flex items-center justify-between py-[38.5px] px-[80px]">
+    <div
+      className={cn(
+        "flex items-center justify-between py-[38.5px] px-[80px] sticky top-0 z-40 transition-all duration-300",
+        scrolled
+          ? "bg-white/80 backdrop-blur-sm shadow-sm"
+          : "bg-transparent"
+      )}
+    >
       <Logo className="w-[187.489px] h-[30px]" />
       <div className="flex items-center justify-between gap-[40px]">
         {navLinks.map((link) => (
@@ -112,6 +135,7 @@ const DesktopNav = () => {
     </div>
   );
 };
+
 const Nav = () => {
   return (
     <div>

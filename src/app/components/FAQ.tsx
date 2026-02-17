@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { useInView } from "@/hooks/useInView";
+import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 
 const faqs = [
   {
@@ -65,51 +68,67 @@ const FAQ = () => {
     <section className="bg-[#fcfcfc] py-[64px] md:py-[120px]">
       <div className="max-w-[1240px] mx-auto px-[20px] md:px-[100px]">
         {/* Heading */}
-        <div className="flex flex-col items-center gap-[8px] md:gap-[12px] text-center mb-[40px] md:mb-[80px]">
-          <h2 className="font-bold text-[#080808] text-[20px] md:text-[40px] leading-tight">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-[#707070] text-[12px] md:text-[22px] md:leading-[30px]">
-            We&apos;re happy to answer your questions
-          </p>
-        </div>
+        <AnimateOnScroll animation="animate-in fade-in slide-in-from-bottom-4" duration="duration-700">
+          <div className="flex flex-col items-center gap-[8px] md:gap-[12px] text-center mb-[40px] md:mb-[80px]">
+            <h2 className="font-bold text-[#080808] text-[20px] md:text-[40px] leading-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-[#707070] text-[12px] md:text-[22px] md:leading-[30px]">
+              We&apos;re happy to answer your questions
+            </p>
+          </div>
+        </AnimateOnScroll>
 
         {/* Accordion */}
         <div className="flex flex-col gap-[24px]">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
-              <div key={i} className="border-b border-[#afafaf] pb-[16px] md:pb-[24px]">
-                <button
-                  onClick={() => toggle(i)}
-                  className="flex items-center justify-between w-full text-left gap-[12px]"
-                  aria-expanded={isOpen}
-                >
-                  <span className="font-medium text-[#080808] text-[14px] md:text-[28px] leading-normal">
-                    {faq.question}
-                  </span>
-
-                  {/* Toggle icon */}
-                  <div
-                    className={`flex items-center justify-center rounded-full shrink-0 w-[28px] h-[28px] md:w-[40px] md:h-[40px] transition-colors duration-200 ${
-                      isOpen ? "bg-[#008a48]" : "bg-transparent"
-                    }`}
+              <AnimateOnScroll
+                key={i}
+                animation="animate-in fade-in slide-in-from-bottom-3"
+                delay={`delay-${Math.min(i * 75, 500)}`}
+                duration="duration-500"
+              >
+                <div className="border-b border-[#afafaf] pb-[16px] md:pb-[24px]">
+                  <button
+                    onClick={() => toggle(i)}
+                    className="flex items-center justify-between w-full text-left gap-[12px]"
+                    aria-expanded={isOpen}
                   >
-                    <PlusIcon
-                      className={`w-[16px] h-[16px] md:w-[24px] md:h-[24px] transition-transform duration-200 ${
-                        isOpen ? "rotate-45 text-white" : "text-[#080808]"
-                      }`}
-                    />
-                  </div>
-                </button>
+                    <span className="font-medium text-[#080808] text-[14px] md:text-[28px] leading-normal">
+                      {faq.question}
+                    </span>
 
-                {/* Answer */}
-                {isOpen && (
-                  <p className="mt-[12px] md:mt-[16px] text-[#6d6d6d] text-[12px] leading-[22px] md:text-[24px] md:leading-[40px] max-w-[843px]">
-                    {faq.answer}
-                  </p>
-                )}
-              </div>
+                    {/* Toggle icon */}
+                    <div
+                      className={`flex items-center justify-center rounded-full shrink-0 w-[28px] h-[28px] md:w-[40px] md:h-[40px] transition-colors duration-200 ${
+                        isOpen ? "bg-[#008a48]" : "bg-transparent"
+                      }`}
+                    >
+                      <PlusIcon
+                        className={`w-[16px] h-[16px] md:w-[24px] md:h-[24px] transition-transform duration-200 ${
+                          isOpen ? "rotate-45 text-white" : "text-[#080808]"
+                        }`}
+                      />
+                    </div>
+                  </button>
+
+                  {/* Answer with smooth height transition */}
+                  <div
+                    className={cn(
+                      "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out",
+                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    )}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="mt-[12px] md:mt-[16px] text-[#6d6d6d] text-[12px] leading-[22px] md:text-[24px] md:leading-[40px] max-w-[843px]">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </AnimateOnScroll>
             );
           })}
         </div>

@@ -1,28 +1,74 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import { useInView } from "@/hooks/useInView";
+import { useCountUp } from "@/hooks/useCountUp";
+
+const CountUpNumber = ({
+  end,
+  prefix,
+  suffix,
+  isActive,
+  color,
+}: {
+  end: number;
+  prefix?: string;
+  suffix?: string;
+  isActive: boolean;
+  color: string;
+}) => {
+  const count = useCountUp(end, isActive);
+  const formatted = end >= 1000 ? count.toLocaleString() : count.toString();
+
+  return (
+    <span style={{ color }}>
+      {prefix}
+      {formatted}
+      {suffix}
+    </span>
+  );
+};
+
 const EachNumbers = ({
   color,
   icon,
   iconBig,
-  title,
+  end,
+  prefix,
+  suffix,
   list,
   Biglist,
   imgStyle = "block",
   titleClass = "",
+  isActive,
+  delay,
 }: {
   color: string;
   icon: string;
   iconBig?: string;
-  title: string;
+  end: number;
+  prefix?: string;
+  suffix?: string;
   list: string[];
   Biglist?: string[];
   imgStyle?: string;
   titleClass?: string;
+  isActive: boolean;
+  delay: string;
 }) => {
-  return (
-    <div>
-      <p
-        className={`text-brand-green font-bold text-[16.7px] flex items-center gap-[4px] pb-[16.5px] border-b-[1px] border-b-[#AFAFAF] mb-[13px]
+  const { ref, isInView } = useInView();
 
-      md:text-[48px] ${titleClass}`}
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        !isInView && "opacity-0",
+        isInView && "animate-in fade-in slide-in-from-bottom-4 fill-mode-forwards duration-500",
+        isInView && delay
+      )}
+    >
+      <p
+        className={`text-brand-green font-bold text-[16.7px] flex items-center gap-[4px] pb-[16.5px] border-b-[1px] border-b-[#AFAFAF] mb-[13px] md:text-[48px] ${titleClass}`}
       >
         <img
           src={icon}
@@ -30,10 +76,16 @@ const EachNumbers = ({
           alt=""
           loading="lazy"
         />
-        {iconBig && <img src={iconBig} className="hidden md:block" alt="" loading="lazy" />}
-        <span className="" style={{ color }}>
-          {title}
-        </span>
+        {iconBig && (
+          <img src={iconBig} className="hidden md:block" alt="" loading="lazy" />
+        )}
+        <CountUpNumber
+          end={end}
+          prefix={prefix}
+          suffix={suffix}
+          isActive={isActive && isInView}
+          color={color}
+        />
       </p>
       <p
         className={`flex items-center flex-col text-[#505050] text-[8px] font-medium text-nowrap ${Biglist ? "md:hidden" : ""}`}
@@ -52,50 +104,66 @@ const EachNumbers = ({
     </div>
   );
 };
+
 const OurNumbers = () => {
+  const { ref, isInView } = useInView();
+
   return (
     <div className="bg-[#E6F5ED] mt-[53px]">
-      <div className=" px-[20px] pb-[38px] max-w-[1200px]  mx-auto">
-        <p className="pt-[40px] text-[#131D0E] text-medium text-[20px] text-center pb-[24px]  md:text-[48px] font-medium  md:pb-[48px]">
+      <div className="px-[20px] pb-[38px] max-w-[1200px] mx-auto" ref={ref}>
+        <p
+          className={cn(
+            "pt-[40px] text-[#131D0E] text-medium text-[20px] text-center pb-[24px] md:text-[48px] font-medium md:pb-[48px]",
+            isInView
+              ? "animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-forwards"
+              : "opacity-0"
+          )}
+        >
           Our Numbers
         </p>
 
-        <div className="">
-          <div className="flex items-center justify-between">
-            <EachNumbers
-              iconBig="/green-coin-big.svg"
-              icon="/green-coin.svg"
-              color="#008A48"
-              title="₦500M+"
-              list={["Transctions", "Across groups", "and solo savings"]}
-              Biglist={["Transctions", "Across groups and solo savings"]}
-              // titleClass="md:pb-[0px]"
-              //   imgStyle="block h-[40px] w-[40px]"
-            />
-            <EachNumbers
-              icon="/Users.svg"
-              iconBig="/user-big.svg"
-              color="#0052C4"
-              title="70,000+"
-              list={["Active user", "Building financial", "trust daily"]}
-              Biglist={["Active user", "Building financial trust daily"]}
-            />
-            <EachNumbers
-              icon="/Vector (3).svg"
-              iconBig="/bg-star.svg"
-              color="#FF8E44"
-              title="114,000+"
-              list={[
-                "Successful payments",
-                "Thanks to trust scores & ",
-                "auto debit",
-              ]}
-              Biglist={[
-                "Successful payments",
-                "Thanks to trust scores & auto debit",
-              ]}
-            />
-          </div>
+        <div className="flex items-center justify-between">
+          <EachNumbers
+            iconBig="/green-coin-big.svg"
+            icon="/green-coin.svg"
+            color="#008A48"
+            end={500}
+            prefix="₦"
+            suffix="M+"
+            list={["Transctions", "Across groups", "and solo savings"]}
+            Biglist={["Transctions", "Across groups and solo savings"]}
+            isActive={isInView}
+            delay="delay-0"
+          />
+          <EachNumbers
+            icon="/Users.svg"
+            iconBig="/user-big.svg"
+            color="#0052C4"
+            end={70000}
+            suffix="+"
+            list={["Active user", "Building financial", "trust daily"]}
+            Biglist={["Active user", "Building financial trust daily"]}
+            isActive={isInView}
+            delay="delay-150"
+          />
+          <EachNumbers
+            icon="/Vector (3).svg"
+            iconBig="/bg-star.svg"
+            color="#FF8E44"
+            end={114000}
+            suffix="+"
+            list={[
+              "Successful payments",
+              "Thanks to trust scores & ",
+              "auto debit",
+            ]}
+            Biglist={[
+              "Successful payments",
+              "Thanks to trust scores & auto debit",
+            ]}
+            isActive={isInView}
+            delay="delay-300"
+          />
         </div>
       </div>
     </div>
