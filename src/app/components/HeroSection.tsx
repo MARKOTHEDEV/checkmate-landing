@@ -76,8 +76,12 @@ const HeroSection = () => {
               : "opacity-0"
           )}
         >
-          <img src="/Google_Play.svg" className="block w-full" alt="" />
-          <img src="/app_store.svg" className="block w-full" alt="" />
+          <a href="https://play.google.com/store/apps/details?id=com.chequemate.app" target="_blank" rel="noopener noreferrer">
+            <img src="/Google_Play.svg" className="block w-full" alt="Get it on Google Play" />
+          </a>
+          <a href="https://apps.apple.com/us/app/chequemate-savings/id6736896787" target="_blank" rel="noopener noreferrer">
+            <img src="/app_store.svg" className="block w-full" alt="Download on the App Store" />
+          </a>
         </div>
       </div>
       <img
